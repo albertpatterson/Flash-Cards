@@ -21,112 +21,98 @@
     <!-- Google Flow -->
 
     <div id="choose-list" class="modal-content default-hidden showing">
-      <h2 class="section">Choose word list</h2>
+      <h2 class="section main-text">Choose word list</h2>
+      <div data-error="use-alberts-list" class="section error-message default-hidden"></div>
       <div class="section">
-        <div data-error="use-alberts-list" class="error-message default-hidden"></div>
-      </div>
-      <div class="section">
-        <button data-action="use-alberts-list" data-nav="choose-key">Albert's List</button>
-        <button data-nav="choose-key">My List</button>
+        <button class="btn" data-action="use-alberts-list" data-nav="choose-key">Albert's List</button>
+        <button class="btn" data-nav="choose-key">My List</button>
         <!-- <button data-action="go-to-choose-spreadsheet">My List</button> -->
       </div>
     </div>
 
     <div id="choose-key" class="modal-content default-hidden">
-      <h2 class="section">What is your API key<a id="api-key-info"></a>?</h2>
+      <h2 class="section main-text">What is your API key<a id="api-key-info"></a>?</h2>
       <div class="section">
-        <input type="text" placeholder="API key" id="api-key">
+        <input type="text" class="input" placeholder="API key" id="api-key">
       </div>
-      <div class="section">      
-        <div data-error="set-api-key" class="error-message default-hidden"></div>
-      </div>
+      <div data-error="set-api-key" class="section error-message default-hidden"></div>
       <div class="section">
         <!-- <button data-action="go-back-from-choose-api-key">Back</button> -->
-        <button data-nav="choose-list">Back</button>
-        <button data-action="set-api-key" data-nav="choose-spreadsheet">OK</button>
+        <button class="btn" data-nav="choose-list">Back</button>
+        <button class="btn" data-action="set-api-key" data-nav="choose-spreadsheet">OK</button>
       </div>
     </div>
 
     <div id="choose-spreadsheet" class="modal-content default-hidden">
-      <h2 class="section">What is the ID<a id="spreadsheet-info"></a> of your spreadsheet?</h2>
+      <h2 class="section main-text">What is the ID<a id="spreadsheet-info"></a> of your spreadsheet?</h2>
       <div class="section">
-        <input type="text" placeholder="spreadsheet ID" id="spreadsheet-id">
+        <input type="text"  class="input" placeholder="spreadsheet ID" id="spreadsheet-id">
       </div>
-      <div class="section">
-        <div data-error="set-spreadsheet-id" class="error-message default-hidden"></div>
-      </div>
+      <div data-error="set-spreadsheet-id" class="section error-message default-hidden"></div>
       <div class="section">
         <!-- <button data-action="go-to-choose-list">Back</button> -->
-        <button data-nav="choose-key">Back</button>
-        <button data-action="set-spreadsheet-id",  data-nav="choose-sheets">OK</button>
+        <button class="btn" data-nav="choose-key">Back</button>
+        <button class="btn" data-action="set-spreadsheet-id",  data-nav="choose-sheets">OK</button>
       </div>
     </div>
 
     <div id="choose-sheets" class="modal-content default-hidden">
-      <h2 class="section">Which sheets would you like to include?</h2>
+      <h2 class="section main-text">Which sheets would you like to include?</h2>
       <div id="sheet-checkbox-group-wrapper" class="section">
       </div>
-      <div class="section">
-        <div data-error="set-sheets" class="error-message default-hidden"></div>
-      </div>
+      <div data-error="set-sheets" class="section error-message default-hidden"></div>
       <div class="section">
         <!-- <button data-action="go-to-choose-list">Back</button> -->
-        <button data-nav="choose-spreadsheet">Back</button>
-        <button data-action="set-sheets">OK</button>
+        <button class="btn" data-nav="choose-spreadsheet">Back</button>
+        <button class="btn" data-action="set-sheets">OK</button>
       </div>
     </div>
     
     <div id="flash-card" class="modal-content default-hidden">
       <div id="chinese-side" class="section default-hidden">
-        <h2 id="hanzi"></h2>
-        <h2 id="pinyin"></h2>
+        <h2 id="hanzi" class="card-text"></h2>
+        <h2 id="pinyin" class="card-text"></h2>
       </div>
       <div id="english-side" class="section default-hidden">
-        <h2 id="english"></h2>
+        <h2 id="english" class="card-text"></h2>
       </div>
+      <div data-error="flip" class="section error-message default-hidden"></div>
+      <div data-error="delay-zero-min" class="section error-message default-hidden"></div>
+      <div data-error="delay-one-min" class="section error-message default-hidden"></div>
+      <div data-error="delay-ten-min" class="section error-message default-hidden"></div>
+      <div data-error="delay-one-hour" class="section error-message default-hidden"></div>
       <div class="section">
-        <div data-error="flip" class="error-message default-hidden"></div>
-        <div data-error="delay-zero-min" class="error-message default-hidden"></div>
-        <div data-error="delay-one-min" class="error-message default-hidden"></div>
-        <div data-error="delay-ten-min" class="error-message default-hidden"></div>
-        <div data-error="delay-one-hour" class="error-message default-hidden"></div>
-      </div>
-      <div class="section">
-        <button data-action="flip">Flip</button>
+        <button class="btn" data-action="flip">Flip</button>
       </div>
       <div id="hide-for-section" class="section default-hidden">
-        <button data-action="delay-zero-min">X</button>
-        <button data-action="delay-one-min">1 Min</button>
-        <button data-action="delay-ten-min">10 Mins</button>
-        <button data-action="delay-one-hour">1 Hour</button>
+        <button class="btn" data-action="delay-zero-min">X</button>
+        <button class="btn" data-action="delay-one-min">1 Min</button>
+        <button class="btn" data-action="delay-ten-min">10 Mins</button>
+        <button class="btn" data-action="delay-one-hour">1 Hour</button>
       </div>
     </div>
 
     <div id="complete" class="modal-content default-hidden"> 
-      <h2>All Cards Complete!</h2>
+      <h2 class="section main-text">All Cards Complete!</h2>
+      <div data-error="reset" class="section error-message default-hidden"></div>
       <div class="section">
-        <div data-error="reset" class="error-message default-hidden"></div>
-      </div>
-      <div class="section">
-        <button data-action="reset">Reset</button>
+        <button class="btn" data-action="reset">Reset</button>
       </div>
     </div>
 
     <div id="settings-panel" class="modal-content default-hidden">
-      <h2 class="section">Settings</h2>
+      <h2 class="section main-text">Settings</h2>
       <div class="section">
-        <label for="front-side-lang-select">Choose the language on front of card.</label>
-        <select id="front-side-lang-select">
-          <option value="Chinese">Chinese</option>
-          <option value="English">English</option>
+        <label for="front-side-lang-select" class="label">Choose the language on front of card.</label>
+        <select class="input" id="front-side-lang-select">
+          <option class="option" value="Chinese">Chinese</option>
+          <option class="option" value="English">English</option>
         </select>
       </div>
+      <div data-error="update-settings" class="section error-message default-hidden"></div>
       <div class="section">
-        <div data-error="update-settings" class="error-message default-hidden"></div>
-      </div>
-      <div class="section">
-        <button data-action="update-settings" data-nav="choose-list">Choose Data</button>
-        <button data-action="update-settings">Done</button>
+        <button class="btn" data-action="update-settings" data-nav="choose-list">Choose Data</button>
+        <button class="btn" data-action="update-settings">Done</button>
       </div>
     </div>
   </div>

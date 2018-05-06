@@ -70,12 +70,14 @@ function initChooseSheets(){
 
     let id = getSheetCheckboxId(sheetTitle, idx);
     let cb = document.createElement("input");
-    cb.type="checkbox"
+    cb.type="checkbox";
+    cb.classList.add("checkbox");
     cb.id=id;
     checkboxWrapper.appendChild(cb)
 
     let lab = document.createElement("label");
     lab.for=id;
+    cb.classList.add("label");
     lab.innerText=sheetTitle;
     checkboxWrapper.appendChild(lab);
   })
