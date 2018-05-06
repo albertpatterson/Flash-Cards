@@ -1,6 +1,6 @@
-const actionAndNav = require("./actionAndNav");
-const constants = require("./constants");
-const dataService = require("./dataService");
+const actionAndNav = require("../../utils/actionAndNav");
+const constants = require("../../utils/constants");
+const dataService = require("../../service/dataService");
 
 let data = null;
 let settings = null;
@@ -35,12 +35,6 @@ const actions = {
       initChooseSheets();
       return true;
     });
-
-    // send request for sheet names
-    // data.availableSets = ["Sheet1", "Sheet2", "Sheet3"];
-    // initSelectedSheetTitles();
-    // initChooseSheets();
-    // return Promise.resolve(true)
   },
   "set-sheets": function(){
     data.availableSets.forEach((t, i)=>{
@@ -51,12 +45,7 @@ const actions = {
   "update-settings": function(){
     updateSettingsFromPanel();
     return onUpdateSettings ? onUpdateSettings() : Promise.resolve(true);
-  },
-  // "update-data": function(){
-  //   updateSettingsFromPanel();
-  //   return onUpdateData ? onUpdateData() : Promise.resolve(true);
-  // }
-
+  }
 }
 actionAndNav.addActions(actions);
 

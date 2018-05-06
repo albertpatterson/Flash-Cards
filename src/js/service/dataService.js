@@ -1,5 +1,5 @@
-const googleSpreadsheetDataService = require("./googleSpreadsheetDataService");
-const constants = require("./constants");
+const googleSpreadsheetDataService = require("./google/spreadsheetService");
+const constants = require("../utils/constants");
 
 function getProvider(settings){
   if(settings.provider===constants.google){

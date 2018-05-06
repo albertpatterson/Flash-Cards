@@ -18,9 +18,13 @@
   <div class="modal">
     <button id="settings-btn" data-nav="settings-panel"></button>
 
+    <!-- Google Flow -->
+
     <div id="choose-list" class="modal-content default-hidden showing">
       <h2 class="section">Choose word list</h2>
-      <div data-error="use-alberts-list" class="error-message default-hidden"></div>
+      <div class="section">
+        <div data-error="use-alberts-list" class="error-message default-hidden"></div>
+      </div>
       <div class="section">
         <button data-action="use-alberts-list" data-nav="choose-key">Albert's List</button>
         <button data-nav="choose-key">My List</button>
@@ -33,7 +37,9 @@
       <div class="section">
         <input type="text" placeholder="API key" id="api-key">
       </div>
-      <div data-error="set-api-key" class="error-message default-hidden"></div>
+      <div class="section">      
+        <div data-error="set-api-key" class="error-message default-hidden"></div>
+      </div>
       <div class="section">
         <!-- <button data-action="go-back-from-choose-api-key">Back</button> -->
         <button data-nav="choose-list">Back</button>
@@ -46,7 +52,9 @@
       <div class="section">
         <input type="text" placeholder="spreadsheet ID" id="spreadsheet-id">
       </div>
-      <div data-error="set-spreadsheet-id" class="error-message default-hidden"></div>
+      <div class="section">
+        <div data-error="set-spreadsheet-id" class="error-message default-hidden"></div>
+      </div>
       <div class="section">
         <!-- <button data-action="go-to-choose-list">Back</button> -->
         <button data-nav="choose-key">Back</button>
@@ -58,7 +66,9 @@
       <h2 class="section">Which sheets would you like to include?</h2>
       <div id="sheet-checkbox-group-wrapper" class="section">
       </div>
-      <div data-error="set-sheets" class="error-message default-hidden"></div>
+      <div class="section">
+        <div data-error="set-sheets" class="error-message default-hidden"></div>
+      </div>
       <div class="section">
         <!-- <button data-action="go-to-choose-list">Back</button> -->
         <button data-nav="choose-spreadsheet">Back</button>
@@ -95,8 +105,8 @@
     <div id="complete" class="modal-content default-hidden"> 
       <h2>All Cards Complete!</h2>
       <div class="section">
-          <div data-error="reset" class="error-message default-hidden"></div>
-        <div class="section">
+        <div data-error="reset" class="error-message default-hidden"></div>
+      </div>
       <div class="section">
         <button data-action="reset">Reset</button>
       </div>
@@ -113,6 +123,7 @@
       </div>
       <div class="section">
         <div data-error="update-settings" class="error-message default-hidden"></div>
+      </div>
       <div class="section">
         <button data-action="update-settings" data-nav="choose-list">Choose Data</button>
         <button data-action="update-settings">Done</button>

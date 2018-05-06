@@ -1,6 +1,6 @@
-const actionAndNav = require("./actionAndNav");
-const constants = require("./constants");
-const utils = require("./utils");
+const actionAndNav = require("../utils/actionAndNav");
+const constants = require("../utils/constants");
+const view = require("../utils/view");
 
 
 let data = null;
@@ -45,7 +45,7 @@ actionAndNav.addActions(actions)
 function startFlashCards(terms){
   initCardData(terms);
   showNextCard();
-  utils.showExclusive("flash-card")
+  view.showExclusive("flash-card")
 }
 
 function initCardData(terms){
@@ -88,9 +88,7 @@ let flashCardHanzi = document.getElementById("hanzi");
 let flashCardPinyin = document.getElementById("pinyin");
 let flashCardEng = document.getElementById("english");
 function showCard(){
-  // console.log(currentCard, flashCardHanzi, flashCardPinyin, flashCardEng);
   data.inactiveCards.forEach(c=>{
-    // console.log(c.pinyin +" "+ c.hideTill +" "+ (c.hideTill-Date.now()));
   })
 
   flashCardHanzi.innerText = currentCard.hanzi;
@@ -99,7 +97,7 @@ function showCard(){
 
   flipped=false;
   showFrontSide();
-  utils.showExclusive("flash-card");
+  view.showExclusive("flash-card");
 }
 
 let chineseSide = document.getElementById("chinese-side");
@@ -132,22 +130,7 @@ function hideAndShowNext(milis){
 }
 
 function showAllComplete(){
-  utils.showExclusive('complete');
+  view.showExclusive('complete');
 }
-
-// document.getElementById("reset-btn").onclick = function(){
-//   initCardData(hiddenCards);
-//   hiddenCards = [];
-//   showNextCard();
-// };
-
-// let frontSideLangSelect = document.getElementById("front-side-lang-select");
-// function updateSettings(){
-//   startWithChinese = frontSideLangSelect.value==="Chinese";
-//   showFrontSide();
-//   utils.showExclusive("flash-card");
-//   if(flipped) flip();
-// }
-// setAction("update-settings", updateSettings);
 
 module.exports = flashcardsFlow;

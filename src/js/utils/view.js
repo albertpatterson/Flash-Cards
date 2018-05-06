@@ -13,6 +13,4 @@ module.exports = {
     [].forEach.call(showingContents, e=>e.classList.remove("showing"));
     document.getElementById(id).classList.add("showing");
   }
-
-
 }
