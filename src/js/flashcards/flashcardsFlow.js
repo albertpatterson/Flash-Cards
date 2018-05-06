@@ -34,10 +34,10 @@ let actions ={
     flip();
     return Promise.resolve();
   },
+  "delay-zero-min": hideAndShowNext(0),
   "delay-one-min": hideAndShowNext(constants.minMilis),
   "delay-ten-min": hideAndShowNext(10*constants.minMilis),
   "delay-one-hour": hideAndShowNext(constants.hourMilis),
-  "delay-one-day": hideAndShowNext(constants.dayMilis),
   "reset": ()=>{flashcardsFlow.start(); return Promise.resolve(true);}
 };
 actionAndNav.addActions(actions)
