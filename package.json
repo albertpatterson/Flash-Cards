@@ -1,0 +1,29 @@
+{
+  "name": "flash-cards",
+  "version": "1.0.0",
+  "description": "flash cards for studying chinese",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albertpatterson/Flash-Cards.git"
+  },
+  "keywords": [
+    "chinese",
+    "study",
+    "flashcard"
+  ],
+  "author": "Albert Patterson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/albertpatterson/Flash-Cards/issues"
+  },
+  "homepage": "https://github.com/albertpatterson/Flash-Cards#readme",
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "webpack": "^4.7.0"
+  }
+}
