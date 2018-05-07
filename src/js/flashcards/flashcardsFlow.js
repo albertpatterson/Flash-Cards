@@ -17,6 +17,7 @@ let flashcardsFlow = {
   },
   start: function(terms){
     if(terms){
+      data.inactiveCards = [];
       startFlashCards(terms);
     }else if(data.activeCards.length===0){
       data.activeCards.push(...data.inactiveCards);
