@@ -11,30 +11,17 @@ const actions = {
   "use-alberts-list": function(){
     settings.google.spreadsheetId = constants.albertsSheetId;
     document.getElementById("spreadsheet-id").value = settings.google.spreadsheetId; 
-    return Promise.resolve(true);
-  },
-  "set-api-key": function(){
-    settings.google.apiKey = document.getElementById("api-key").value;
-    // TODO validate key in some way
-    return Promise.resolve(true);
+    
+    return getSets().then(setupSetSelection);
   },
   "set-spreadsheet-id": function(){
     settings.google.spreadsheetId = document.getElementById("spreadsheet-id").value;
 
-    console.log(settings.google.spreadsheetId);
-    console.log(constants.spreadsheetIdRegex)
-    console.log(settings.google.spreadsheetId.match(constants.spreadsheetIdRegex))
     if(!settings.google.spreadsheetId.match(constants.spreadsheetIdRegex)){
       return Promise.reject(new Error("Invalid Spreadsheet ID"));
     }
     
-    return dataService.getSets(settings)
-    .then(sets=>{
-      data.availableSets = sets;
-      initSelectedSheetTitles();
-      initChooseSheets();
-      return true;
-    });
+    return getSets().then(setupSetSelection);
   },
   "set-sheets": function(){
     data.availableSets.forEach((t, i)=>{
@@ -48,6 +35,17 @@ const actions = {
   }
 }
 actionAndNav.addActions(actions);
+
+function getSets(){
+  return dataService.getSets(settings);
+}
+
+function setupSetSelection(sets){
+  data.availableSets = sets;
+  initSelectedSheetTitles();
+  initChooseSheets();
+  return true;
+}
 
 function updateSettingsFromPanel(){
   settings.startWithChinese = document.getElementById("front-side-lang-select").selectedOptions[0].value===constants.chinese;
@@ -101,10 +99,10 @@ let settingsFlow = {
     sheetIDBtn.target="_blank";
     sheetIDBtn.href="https://developers.google.com/sheets/api/guides/concepts#sheet_id";
   
-    let apiKeyBtn = document.getElementById("api-key-info");
-    apiKeyBtn.classList.add("info-btn");
-    apiKeyBtn.target="_blank";
-    apiKeyBtn.href="https://developers.google.com/sheets/api/guides/authorizing#APIKey";
+    // let apiKeyBtn = document.getElementById("api-key-info");
+    // apiKeyBtn.classList.add("info-btn");
+    // apiKeyBtn.target="_blank";
+    // apiKeyBtn.href="https://developers.google.com/sheets/api/guides/authorizing#APIKey";
   
     document.getElementById("front-side-lang-select").selectedIndex = settings.startWithChinese ? 0 : 1;
   },

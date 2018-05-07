@@ -1,46 +1,63 @@
-function makeGetUrl(apiKey, spreadsheetID, params){
-  console.log(arguments)
+// function makeGetUrl(apiKey, spreadsheetID, params){
+//   console.log(arguments)
 
-  let url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetID}?key=${apiKey}`;
-  for(let p in params){
-    url+=`&${p}=${params[p]}`;
-  }
-  console.log(url)
+//   let url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetID}?key=${apiKey}`;
+//   for(let p in params){
+//     url+=`&${p}=${params[p]}`;
+//   }
+//   console.log(url)
 
-  return url;
-}
+//   return url;
+// }
 
-function makeBatchGetUrl(apiKey, spreadsheetID, params){
-  console.log(arguments)
-  let url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetID}/values:batchGet?key=${apiKey}`;
-  for(let p in params){
-    if(p==="ranges"){
-      params[p].forEach(r=>url+=`&ranges=${r}`);
-    }else{
-      url+=`&${p}=${params[p]}`;  
-    }
-  }
-  return url;
-}
+// function makeBatchGetUrl(apiKey, spreadsheetID, params){
+//   console.log(arguments)
+//   let url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetID}/values:batchGet?key=${apiKey}`;
+//   for(let p in params){
+//     if(p==="ranges"){
+//       params[p].forEach(r=>url+=`&ranges=${r}`);
+//     }else{
+//       url+=`&${p}=${params[p]}`;  
+//     }
+//   }
+//   return url;
+// }
 
-function getSheetTitles(apiKey, spreadsheedId){
-  let sheetNamesUrl = makeGetUrl(
-                        apiKey,
-                        spreadsheedId, 
-                        { fields: "sheets.properties.title"});
-  return getGoogleSheetData(sheetNamesUrl);
+// function getGoogleSheetData(url){
+//   console.log(url)
+//   return new Promise((res, rej)=>{
+//     let oReq = new XMLHttpRequest();
+//     oReq.addEventListener("load", oReg=>parseGoogleSheetResponse(oReq.response).then(res).catch(rej));
+//     oReq.addEventListener("error", rej);
+//     oReq.open("GET", url);
+//     oReq.send();  
+//   })
+// }
+
+function getSheetTitles(spreadsheedId){
+
+  let params = {
+    spreadsheetId: spreadsheedId,
+    ranges: [],
+    includeGridData: false,
+    fields: "sheets.properties.title"
+  };
+  let request = gapi.client.sheets.spreadsheets.get(params);
+  return request.then(r=>parseGoogleSheetResponse(r.result));
 }
 
 function extractSheetTitles(sheets){
   return sheets.map(s=>s.properties.title);
 }
   
-function batchGetSheetData(apiKey, spreadsheedId, sheetNames){
-  var sheetDataUrl = makeBatchGetUrl(
-                      apiKey,
-                      spreadsheedId,  
-                      { ranges: sheetNames});
-  return getGoogleSheetData(sheetDataUrl);
+function batchGetSheetData(spreadsheedId, sheetNames){
+  let params = {
+    spreadsheetId: spreadsheedId,
+    ranges: sheetNames, 
+  };
+
+  var request = gapi.client.sheets.spreadsheets.values.batchGet(params);
+  return request.then(r=>parseGoogleSheetResponse(r.result));
 }
 
 function batchExtractTerms(valueRanges){
@@ -48,19 +65,9 @@ function batchExtractTerms(valueRanges){
 }
 let arrToCard = a=>{return {hanzi: a[0], pinyin: a[1], english: a[2]}};
 
-function getGoogleSheetData(url){
-  console.log(url)
-  return new Promise((res, rej)=>{
-    let oReq = new XMLHttpRequest();
-    oReq.addEventListener("load", oReg=>parseGoogleSheetResponse(oReq.response).then(res).catch(rej));
-    oReq.addEventListener("error", rej);
-    oReq.open("GET", url);
-    oReq.send();  
-  })
-}
+function parseGoogleSheetResponse(response){
+  let parsedResponse = typeof response === "string" ? JSON.parse(JSON_response) : response;
 
-function parseGoogleSheetResponse(JSON_response){
-  let parsedResponse = JSON.parse(JSON_response);
   return new Promise((res, rej)=>{
     if(parsedResponse.error){
       rej(parsedResponse.error);
@@ -76,13 +83,12 @@ function parseGoogleSheetResponse(JSON_response){
 
 module.exports = {
   getSetNames: function(settings){
-    console.log(settings);
-    return getSheetTitles(settings.google.apiKey, settings.google.spreadsheetId)
+    return getSheetTitles(settings.google.spreadsheetId)
     .then(extractSheetTitles);
   },
 
   getTerms: function(settings, setsToGet){
-    return batchGetSheetData(settings.google.apiKey, settings.google.spreadsheetId, setsToGet)
+    return batchGetSheetData(settings.google.spreadsheetId, setsToGet)
     .then(batchExtractTerms);
   }
 };

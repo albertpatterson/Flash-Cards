@@ -24,7 +24,6 @@ let flashcardsFlow = {
       data.inactiveCards = [];
       startFlashCards(data.activeCards);
     }else{
-      console.log("start", data.activeCards, data.inactiveCards, Date.now());  
       startFlashCards(data.activeCards);
     }
   }
@@ -81,7 +80,6 @@ function showNextCard(){
 
   currentCard = data.activeCards.pop();
   data.inactiveCards.push(currentCard);
-  console.log("show",data.activeCards, data.inactiveCards, Date.now());  
   showCard();
 }
 

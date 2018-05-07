@@ -5,10 +5,6 @@ const flashcardsFlow = require("./flashcards/flashcardsFlow");
 const dataService = require("./service/dataService");
 const constants = require("./utils/constants");
 
-
-//     AIzaSyBdvR2QMz3NrYmv5LuNzTIEPkvUURQF6zU    
-
-
 const data = {
   availableSets: [],
   activeCards: [],
@@ -17,7 +13,6 @@ const data = {
 
 const settings = {
   google: {
-    apiKey: "",
     spreadsheetId: "",
   },
   setSelected: [],
@@ -29,11 +24,9 @@ settingsFlow.init(
   data, 
   settings, 
   ()=>{
-    console.log(data, settings); 
     let setsToGet = data.availableSets.filter((_, i)=>settings.setSelected[i]);
     return dataService.getTerms(settings, setsToGet)
     .then(terms=>{
-      console.log(terms);
       flashcardsFlow.start(terms);
       view.showExclusive('flash-card');
     });
@@ -47,7 +40,6 @@ flashcardsFlow.init(data, settings, ()=>view.showExclusive('complete'));
 
 
 function showErrorReport(error, el){
-  console.log("reporting error", error)
   let errorWrapper = getErrorWrapper(el);
   if(errorWrapper){
     errorWrapper.innerText = error.message;
@@ -57,7 +49,6 @@ function showErrorReport(error, el){
 }
 
 function resetErrorReport(el){
-  console.log("resetting error report")
   let errorWrapper = getErrorWrapper(el);
   if(errorWrapper){
     errorWrapper.innerText = "";
