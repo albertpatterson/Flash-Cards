@@ -18,19 +18,35 @@ let actionAndNav = {
       let actionName=el.dataset.action;
       let nextId=el.dataset.nav
       if(actionName && nextId){
-        el.onclick=()=>actions[actionName]()
-                      .then(resetErrorReport(el))
-                      .catch(e=>showErrorReport(e, el))
-                      .then(go=>go&&nav(nextId));
+        el.onclick = function(){
+          disableActionAndNav()
+          actions[actionName]()
+          .then(resetErrorReport(el))
+          .catch(e=>showErrorReport(e, el))
+          .then(go=>go&&nav(nextId))
+          .then(enableActionAndNav);
+        }
       }else if(actionName){
-        el.onclick=()=>actions[actionName]()
-                      .then(resetErrorReport(el))
-                      .catch(e=>showErrorReport(e, el));
+        el.onclick = function(){
+          disableActionAndNav()
+          actions[actionName]()
+          .then(resetErrorReport(el))
+          .catch(e=>showErrorReport(e, el))
+          .then(enableActionAndNav);
+        };
       }else{
         el.onclick=()=>nav(nextId);
       }
     })
   }
+}
+
+function disableActionAndNav(){
+  [].forEach.call(document.querySelectorAll("[data-action], [data-nav]"),el=>{el.disabled=true});
+}
+
+function enableActionAndNav(){
+  [].forEach.call(document.querySelectorAll("[data-action], [data-nav]"),el=>{el.disabled=false});
 }
 
 module.exports = actionAndNav;
