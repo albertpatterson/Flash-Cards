@@ -1,6 +1,6 @@
 .idea
+Flash-Cards.iml
 node_modules
 dist
 junk
 package-lock.json
-bedtime.iml

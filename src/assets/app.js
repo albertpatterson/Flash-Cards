@@ -1,9 +1,13 @@
-const view = require("./utils/view");
-const settingsFlow = require("./settings/settingsFlow");
-const actionAndNav = require("./utils/actionAndNav");
-const flashcardsFlow = require("./flashcards/flashcardsFlow");
-const dataService = require("./service/dataService");
-const constants = require("./utils/constants");
+import './css/app.css';
+import '../../node_modules/firebaseui/dist/firebaseui.css';
+import './media/favicon.ico';
+
+const view = require("./js/utils/view");
+const settingsFlow = require("./js/settings/settingsFlow");
+const actionAndNav = require("./js/utils/actionAndNav");
+const flashcardsFlow = require("./js/flashcards/flashcardsFlow");
+const dataService = require("./js/service/dataService");
+const constants = require("./js/utils/constants");
 
 const data = {
   availableSets: [],

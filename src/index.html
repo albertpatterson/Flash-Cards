@@ -3,14 +3,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-
   <title>Flash Cards</title>
-  <link rel="shortcut icon" href="favicon.ico"/>
   <meta name="description" content="Flash cards for studying Chinese">
   <meta name="author" content="Albert Patterson">
-
-  <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
-  <link rel="stylesheet" href="css/styles.css"/>
 
 </head>
 <body>
@@ -60,9 +55,17 @@
     }
   </script>
 
-  <script async defer src="https://apis.google.com/js/api.js"
-    onload="this.onload=function(){};handleClientLoad()"
-    onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+  <script>
+    let s = document.createElement("script");
+    s.src = "https://apis.google.com/js/api.js";
+    s.onload = function(){this.onload=function(){}; handleClientLoad()};
+    s.onreadystatechange = function(){if (this.readyState === 'complete') this.onload()};
+    document.head.appendChild(s);
+  </script>
+
+  <!--<script async defer src="https://apis.google.com/js/api.js"-->
+          <!--onload="this.onload=function(){};handleClientLoad()"-->
+          <!--onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>-->
 
   <div id="loading-modal" class="modal default-hidden showing">
     <h2 class="section main-text">Loading...</h2>
@@ -157,7 +160,5 @@
       </div>
     </div>
   </div>
-
-  <script src="bundle.js"></script>
 </body>
 </html>

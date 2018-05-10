@@ -47,7 +47,7 @@ html, body {
     content: "?";
 }
 #settings-btn{
-    background-image: url("../settings.png");
+    background-image: url("../media/settings.png");
     background-repeat: no-repeat;
     background-size: 100%;
     color: #000000;
@@ -95,7 +95,7 @@ html, body {
     width: 100%;
     height: 150px;
     margin: 0 auto;
-    background-image: url("../google-sign-in-btn.png");
+    background-image: url("../media/google-sign-in-btn.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
