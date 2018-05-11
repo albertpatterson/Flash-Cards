@@ -1,3 +1,4 @@
+const firebase = require("firebase/app");
 const actionAndNav = require("../../utils/actionAndNav");
 const constants = require("../../utils/constants");
 const dataService = require("../../service/dataService");
@@ -32,6 +33,9 @@ const actions = {
   "update-settings": function(){
     updateSettingsFromPanel();
     return onUpdateSettings ? onUpdateSettings() : Promise.resolve(true);
+  },
+  "sign-out": function(){
+    return firebase.auth().signOut().then(()=>true);
   }
 }
 actionAndNav.addActions(actions);

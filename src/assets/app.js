@@ -9,11 +9,109 @@ const flashcardsFlow = require("./js/flashcards/flashcardsFlow");
 const dataService = require("./js/service/dataService");
 const constants = require("./js/utils/constants");
 
+const firebase = require("firebase/app");
+const firebaseui = require('firebaseui');
+
+const config = {
+  apiKey: "AIzaSyBzCyZsZxmVm4h148ZVMBK8arsDz9WLR84",
+  authDomain: "flashcards-6c206.firebaseapp.com",
+  databaseURL: "https://flashcards-6c206.firebaseio.com",
+  projectId: "flashcards-6c206",
+  storageBucket: "flashcards-6c206.appspot.com",
+  messagingSenderId: "544287231306",
+  clientId: '654884288051-tljp13krpkhd0vmv71arp2lrt2avc0br.apps.googleusercontent.com',
+  scopes: ['https://www.googleapis.com/auth/drive'],
+  discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4",
+    "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"]
+};
+firebase.initializeApp(config);
+
+
+// FirebaseUI config.
+const uiConfig = {
+  signInSuccessUrl: 'http://localhost:12003/', // todo: upate for deployment
+  signInOptions: [
+    // Leave the lines as is for the providers you want to offer your users.
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+  ],
+  // Terms of service url.
+  tosUrl: 'http://localhost:12003/' // todo: upate for deployment
+};
+
+// Initialize the FirebaseUI Widget using Firebase.
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+// The start method will wait until the DOM is loaded.
+ui.start('#sign-in-container', uiConfig);
+
+let initApp = function() {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // user.getIdToken().then(function(accessToken) {
+      load_gapi().then(function(){
+        document.getElementById("app-modal").classList.add("showing");
+        document.getElementById("login-modal").classList.remove("showing");
+        document.getElementById("loading-modal").classList.remove("showing");
+      });
+      // });
+    } else {
+
+      document.getElementById("login-modal").classList.add("showing");
+      document.getElementById("app-modal").classList.remove("showing");
+      document.getElementById("loading-modal").classList.remove("showing");
+
+      ["firebaseui-idp-icon", "firebaseui-idp-text"].forEach( c=> {
+        [].forEach.call(document.getElementsByClassName(c), e=>{
+          e.classList.add(c+"-nice");
+        })
+      });
+    }
+  }, function(error) {
+    console.log(error);
+  });
+};
+
+window.addEventListener('load', function() {
+    initApp()
+});
+
+function load_gapi(){
+  return new Promise((res, rej)=>{
+    const s = document.createElement("script");
+    s.src = "https://apis.google.com/js/api.js";
+    s.onload = function(){this.onload=function(){}; handle_gapi_load(res)};
+    s.onreadystatechange = function(){if (this.readyState === 'complete') this.onload()};
+    document.head.appendChild(s);
+  })
+}
+
+function handle_gapi_load(res) {
+  gapi.load('client:auth2', function() {
+    gapi.client.init({
+      apiKey: config.apiKey,
+      clientId: config.clientID,
+      discoveryDocs: config.discoveryDocs,
+      scope: config.scopes.join(' '),
+    }).then(res);
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 const data = {
   availableSets: [],
   activeCards: [],
   inactiveCards: []
-}
+};
 
 const settings = {
   google: {
@@ -22,11 +120,11 @@ const settings = {
   setSelected: [],
   startWithChinese: false,
   provider: constants.google,
-}
+};
 
 settingsFlow.init(
-  data, 
-  settings, 
+  data,
+  settings,
   ()=>{
     let setsToGet = data.availableSets.filter((_, i)=>settings.setSelected[i]);
     return dataService.getTerms(settings, setsToGet)
@@ -36,7 +134,7 @@ settingsFlow.init(
     });
   },
   ()=>{
-    flashcardsFlow.start(); 
+    flashcardsFlow.start();
     return Promise.resolve(true);
   });
 

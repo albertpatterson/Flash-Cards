@@ -91,12 +91,10 @@ html, body {
 .card-text{
     font-size: 4rem;
 }
-#google-sign-in-btn{
-    width: 100%;
-    height: 150px;
-    margin: 0 auto;
-    background-image: url("../media/google-sign-in-btn.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
+.firebaseui-idp-icon-nice {
+    height: 36px;
+    width: 36px;
+}
+.firebaseui-idp-text-nice {
+    font-size: 28px;
 }
