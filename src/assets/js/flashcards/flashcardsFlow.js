@@ -9,6 +9,19 @@ let onComplete = null;
 let currentCard;
 let flipped = false;
 
+let actions ={
+  "flip": function(){
+    flip();
+    return Promise.resolve();
+  },
+  "delay-zero-min": hideAndShowNext(0),
+  "delay-one-min": hideAndShowNext(constants.minMilis),
+  "delay-ten-min": hideAndShowNext(10*constants.minMilis),
+  "delay-one-hour": hideAndShowNext(constants.hourMilis),
+  "reset": ()=>{flashcardsFlow.start(); return Promise.resolve(true);}
+};
+actionAndNav.addActions(actions)
+
 let flashcardsFlow = {
   init: function(_data, _settings, _onComplete){
     data=_data;
@@ -28,19 +41,6 @@ let flashcardsFlow = {
     }
   }
 };
-
-let actions ={
-  "flip": function(){
-    flip();
-    return Promise.resolve();
-  },
-  "delay-zero-min": hideAndShowNext(0),
-  "delay-one-min": hideAndShowNext(constants.minMilis),
-  "delay-ten-min": hideAndShowNext(10*constants.minMilis),
-  "delay-one-hour": hideAndShowNext(constants.hourMilis),
-  "reset": ()=>{flashcardsFlow.start(); return Promise.resolve(true);}
-};
-actionAndNav.addActions(actions)
 
 function startFlashCards(terms){
   initCardData(terms);

@@ -11,12 +11,19 @@
 <body>
 
   <div id="loading-modal" class="modal default-hidden showing">
-    <h2 class="section main-text">Loading...</h2>
+    <div class="modal-content">
+      <h2 class="section main-text">Loading...</h2>
+    </div>
   </div>
 
   <div id="login-modal" class="modal default-hidden">
-    <h2 class="section main-text">Welcome Message and app description</h2>
-    <div id="sign-in-container"></div>
+    <div class="modal-content">
+      <h2 class="section main-text">Welcome Message and app description</h2>
+      <div data-error="sign-in" class="section error-message default-hidden"></div>
+      <div class="section">
+        <button class="btn" data-action="sign-in">Sign In with Google</button>
+      </div>
+    </div>
   </div>
 
   <div id="app-modal" class="modal default-hidden">
