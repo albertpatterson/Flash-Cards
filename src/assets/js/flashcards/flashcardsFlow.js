@@ -45,7 +45,6 @@ let flashcardsFlow = {
 function startFlashCards(terms){
   initCardData(terms);
   showNextCard();
-  view.showExclusive("flash-card")
 }
 
 function initCardData(terms){
