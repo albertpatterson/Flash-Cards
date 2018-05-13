@@ -13,31 +13,50 @@ let actionAndNav = {
     showErrorReport = _showErrorReport;
     resetErrorReport = _resetErrorReport;
 
-    let els = document.querySelectorAll("[data-nav], [data-action]");
+    let els = document.querySelectorAll("[data-nav], [data-action], [data-actionsync]");
     [].forEach.call(els, el=>{
       let actionName=el.dataset.action;
+      let syncActionName=el.dataset.actionsync;
       let nextId=el.dataset.nav
-      if(actionName && nextId){
-        el.onclick = function(){
+      const interaction = getInteraction(el);
+
+      if(actionName){
+     
+        el[interaction] = function(event){
           disableActionAndNav()
-          actions[actionName]()
+          actions[actionName](event)
           .then(resetErrorReport(el))
           .catch(e=>showErrorReport(e, el))
-          .then(go=>go&&nav(nextId))
+          .then(go=>go&&nextId&&nav(nextId))
           .then(enableActionAndNav);
         }
-      }else if(actionName){
-        el.onclick = function(){
-          disableActionAndNav()
-          actions[actionName]()
-          .then(resetErrorReport(el))
-          .catch(e=>showErrorReport(e, el))
-          .then(enableActionAndNav);
+      }else if(syncActionName){
+        el[interaction] = function(event){
+          try{
+            const go = actions[syncActionName](event);
+            go && nextId && nav(nextId);
+          }catch(e){
+            showErrorReport(e, el)
+          }
         };
       }else{
-        el.onclick=()=>nav(nextId);
+        el[interaction]=()=>nav(nextId);
       }
     })
+  }
+}
+
+function getInteraction(el){
+  const tag = el.tagName; 
+  switch(tag){
+    case "BUTTON":
+      return "onclick";
+    case "SELECT":
+      return "onchange";
+    case "INPUT":
+      return "onkeyup";
+    default:
+      throw new Error("Unknown interaction for "+tag);
   }
 }
 

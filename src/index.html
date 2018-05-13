@@ -27,22 +27,35 @@
   </div>
 
   <div id="app-modal" class="modal default-hidden">
-    <button id="settings-btn" data-nav="settings-panel"></button>
+    <button id="settings-btn" data-nav="settings-panel" class="default-hidden"></button>
 
     <!-- Google Flow -->
-    <div id="choose-list" class="modal-content default-hidden showing">
+    <!-- <div id="choose-list" class="modal-content default-hidden showing">
       <h2 class="section main-text">Choose word list</h2>
       <div data-error="use-alberts-list" class="section error-message default-hidden"></div>
       <div class="section">
         <button class="btn" data-action="use-alberts-list" data-nav="choose-sheets">Albert's List</button>
-        <button class="btn" data-nav="choose-spreadsheet">My List</button>
+        <button class="btn" data-action="get-availalble-sets" data-nav="choose-spreadsheet">My List</button>
       </div>
-    </div>
+    </div> -->
 
     <div id="choose-spreadsheet" class="modal-content default-hidden">
-      <h2 class="section main-text">What is the ID<a id="spreadsheet-info"></a> of your spreadsheet?</h2>
+      <h2 class="section main-text">Which spreadsheet would you like to use?</h2>
       <div class="section">
-        <input type="text"  class="input" placeholder="spreadsheet ID" id="spreadsheet-id">
+        <label for="choose-own-spreadsheet">My Spreadsheet:</label>
+        <select class="input" name="choose-own-spreadsheet" id="choose-own-spreadsheet" data-actionsync="update-spreadsheet-id">
+          <option value="" id="default-own-spreadsheet-option" class="default-option" disabled selected>Choose spreadsheet</option>
+        </select>
+      </div>
+      <div class="section">
+          <label for="choose-public-spreadsheet">Public Spreadsheet:</label>
+          <select class="input" name="choose-public-spreadsheet" id="choose-public-spreadsheet" data-actionsync="update-spreadsheet-id">
+            <option value="" id="default-public-spreadsheet-option" class="default-option" disabled selected>Choose spreadsheet</option>
+          </select>
+        </div>
+      <div class="section">
+        <label for="spreadsheet-id">Spreadsheet ID<a id="spreadsheet-info"></a></label>
+        <input type="text"  class="input" placeholder="spreadsheet ID" id="spreadsheet-id" data-actionsync="update-spreadsheet-id">
       </div>
       <div data-error="set-spreadsheet-id" class="section error-message default-hidden"></div>
       <div class="section">
@@ -106,7 +119,7 @@
       <div data-error="update-settings" class="section error-message default-hidden"></div>
       <div data-error="sign-out" class="section error-message default-hidden"></div>
       <div class="section">
-        <button class="btn" data-action="update-settings" data-nav="choose-list">Choose Data</button>
+        <button class="btn" data-action="update-settings" data-nav="choose-spreadsheet">Choose Data</button>
         <button class="btn" data-action="update-settings">Done</button>
       </div>
       <div class="section">

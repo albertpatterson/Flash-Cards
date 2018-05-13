@@ -29,18 +29,20 @@ html, body {
     font-size: 2rem;
     padding: 0 .25rem;
     border: 2px solid black;
+    width: 75%;
+    box-sizing: border-box;
 }
 .info-btn {
     display: inline-block;
     background: lightgray;
     text-align: center;
     border-radius: 50%;
-    font-size: 1.5rem;
+    font-size: 1rem;
     padding: 0;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1rem;
+    height: 1rem;
     position: relative;
-    top: -1.5rem;
+    top: -1rem;
     text-decoration: none;
 }
 .info-btn::after{
@@ -91,10 +93,6 @@ html, body {
 .card-text{
     font-size: 4rem;
 }
-.firebaseui-idp-icon-nice {
-    height: 36px;
-    width: 36px;
-}
-.firebaseui-idp-text-nice {
-    font-size: 28px;
+.default-option{
+    display: none;
 }

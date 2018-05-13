@@ -8,12 +8,21 @@ function getProvider(settings){
 }
 
 const dataService = {
-  getSets: function(settings){
-    return getProvider(settings).getSetNames(settings);
+
+  getOwnCollections: function(settings, data){
+    return getProvider(settings).getOwnCollections(settings, data);
   },
 
-  getTerms: function(settings, setsToGet){
-    return getProvider(settings).getTerms(settings, setsToGet);
+  getPublicCollections: function(settings, data){
+    return getProvider(settings).getPublicCollections(settings, data);
+  },
+
+  getSets: function(settings, data){
+    return getProvider(settings).getSets(settings, data);
+  },
+
+  getTerms: function(settings, data){
+    return getProvider(settings).getTerms(settings, data);
   }
 };
 

@@ -20,12 +20,16 @@ function loadAuthClient(){
     gapi.load('client:auth2', e=>e?rej(e):res())
   })
 }
+
 function initClient(config, signInStatusUpdateCallback) {
   // Initialize the client with API key and People API, and initialize OAuth with an
   // OAuth 2.0 client ID and scopes (space delimited string) to request access.
   return gapi.client.init(config).then(function () {
-    gapi.auth2.getAuthInstance().isSignedIn.listen(signInStatusUpdateCallback);
-    return gapi.auth2.getAuthInstance().isSignedIn.get();
+    const googleAuth = gapi.auth2.getAuthInstance();
+    googleAuth.isSignedIn.listen(signInStatusUpdateCallback);
+    // googleAuth.disconnect();
+    // googleAuth.signOut();
+    return googleAuth.isSignedIn.get();
   })
 }
 

@@ -32,17 +32,23 @@ let config = {
   discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4",
                   "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
   clientId: '654884288051-tljp13krpkhd0vmv71arp2lrt2avc0br.apps.googleusercontent.com',
-  scope: 'https://www.googleapis.com/auth/drive.readonly'
+  scope: 'https://www.googleapis.com/auth/drive.metadata.readonly'
 };
 
-authFlow.init(config);
+authFlow.init(config).then(showApp);
+
+function showApp(){
+  return settingsFlow.start(settings)
+  .then(function(){
+    view.show(document.getElementById("settings-btn"))
+  });
+}
 
 settingsFlow.init(
   data,
   settings,
   ()=>{
-    let setsToGet = data.availableSets.filter((_, i)=>settings.setSelected[i]);
-    return dataService.getTerms(settings, setsToGet)
+    return dataService.getTerms(settings, data)
     .then(terms=>{
       flashcardsFlow.start(terms);
       view.showExclusive('flash-card');

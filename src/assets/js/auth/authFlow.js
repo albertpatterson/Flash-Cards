@@ -19,7 +19,7 @@ const signInModal = document.getElementById("login-modal");
 const appModal = document.getElementById("app-modal");
 function showViewForAuth(isSignedIn){
   loadingModal.classList.remove("showing");
-  if(isSignedIn){
+  if(isSignedIn){   
     signInModal.classList.remove("showing");
     appModal.classList.add("showing");
   }else{
@@ -29,7 +29,7 @@ function showViewForAuth(isSignedIn){
 }
 
 function init(config){
-  auth.init(config, showViewForAuth).then(showViewForAuth);
+  return auth.init(config, showViewForAuth).then(showViewForAuth);
 }
 
 module.exports = {
