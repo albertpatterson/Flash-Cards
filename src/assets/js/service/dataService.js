@@ -1,30 +1,10 @@
-const googleSpreadsheetDataService = require("./google/spreadsheetService");
-const constants = require("../utils/constants");
+const spreadsheets = require("./spreadsheets");
+const sheets = require("./sheets");
+const values = require("./values");
 
-function getProvider(settings){
-  if(settings.provider===constants.google){
-    return googleSpreadsheetDataService;
-  }
+module.exports = {
+  getOwnCollections: spreadsheets.getUserSpreadsheetsMetadata,
+  getPublicCollections: values.getPublicSpreadsheetMetadata,
+  getSets: sheets.getMetadata,
+  getTerms: values.getTerms
 }
-
-const dataService = {
-
-  getOwnCollections: function(settings, data){
-    return getProvider(settings).getOwnCollections(settings, data);
-  },
-
-  getPublicCollections: function(settings, data){
-    return getProvider(settings).getPublicCollections(settings, data);
-  },
-
-  getSets: function(settings, data){
-    return getProvider(settings).getSets(settings, data);
-  },
-
-  getTerms: function(settings, data){
-    return getProvider(settings).getTerms(settings, data);
-  }
-};
-
-module.exports = dataService;
-

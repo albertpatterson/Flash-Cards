@@ -1,7 +1,16 @@
-function init(config, signInStatusUpdateCallback){
+let onSignin = null;
+let onSignout = null;
+function onStatusUpdate(state){
+  state ? onSignin() : onSignout();
+}
+
+function init(config, _onSignin, _onSignout){
+  onSignin = _onSignin;
+  onSignout = _onSignout;
+  
   return load_gapi()
   .then(loadAuthClient)
-  .then(()=>initClient(config, signInStatusUpdateCallback))
+  .then(()=>initClient(config, onStatusUpdate))
 }
 
 function load_gapi(){
@@ -22,14 +31,11 @@ function loadAuthClient(){
 }
 
 function initClient(config, signInStatusUpdateCallback) {
-  // Initialize the client with API key and People API, and initialize OAuth with an
-  // OAuth 2.0 client ID and scopes (space delimited string) to request access.
-  return gapi.client.init(config).then(function () {
+  return gapi.client.init(config)
+  .then(function () {
     const googleAuth = gapi.auth2.getAuthInstance();
     googleAuth.isSignedIn.listen(signInStatusUpdateCallback);
-    // googleAuth.disconnect();
-    // googleAuth.signOut();
-    return googleAuth.isSignedIn.get();
+    googleAuth.isSignedIn.get() ? onSignin() : onSignout();
   })
 }
 

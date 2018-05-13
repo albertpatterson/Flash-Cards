@@ -5,12 +5,9 @@ const view = require("./js/utils/view");
 const actionAndNav = require("./js/utils/actionAndNav");
 const dataService = require("./js/service/dataService");
 const constants = require("./js/utils/constants");
-
 const authFlow = require("./js/auth/authFlow");
 const flashcardsFlow = require("./js/flashcards/flashcardsFlow");
 const settingsFlow = require("./js/settings/settingsFlow");
-
-
 
 const data = {
   availableSets: [],
@@ -35,14 +32,26 @@ let config = {
   scope: 'https://www.googleapis.com/auth/drive.metadata.readonly'
 };
 
-authFlow.init(config).then(showApp);
-
-function showApp(){
+function onSignin(){
   return settingsFlow.start(settings)
   .then(function(){
-    view.show(document.getElementById("settings-btn"))
+    view.show("settings-btn");
+    view.showExclusive("app-modal");
   });
 }
+
+function onSignout(){
+  view.showExclusive("login-modal");
+}
+
+authFlow.init(config, onSignin, onSignout);//.then(startApp);
+
+// function startApp(){
+//   return settingsFlow.start(settings)
+//   .then(function(){
+//     view.show("settings-btn");
+//   });
+// }
 
 settingsFlow.init(
   data,
@@ -60,38 +69,3 @@ settingsFlow.init(
   });
 
 flashcardsFlow.init(data, settings, ()=>view.showExclusive('complete'));
-
-
-function showErrorReport(error, el){
-  let errorWrapper = getErrorWrapper(el);
-  if(errorWrapper){
-    errorWrapper.innerText = error.message;
-    view.show(errorWrapper)
-  }
-  return Promise.resolve(false);
-}
-
-function resetErrorReport(el){
-  let errorWrapper = getErrorWrapper(el);
-  if(errorWrapper){
-    errorWrapper.innerText = "";
-    view.unshow(errorWrapper)
-  }
-  return Promise.resolve(true);
-}
-
-function getErrorWrapper(actionEl){
-  let actionName = actionEl.dataset.action;
-  let checkEl = actionEl.parentElement;
-  while(checkEl && !checkEl.classList.contains("modal-content")) checkEl=checkEl.parentElement;
-  if(checkEl){
-    let errorWrapper = document.querySelector(`[data-error="${actionName}"]`);
-    if(!errorWrapper) console.warn("No error wrapper found for action "+actionName);
-    return errorWrapper;
-  }else{
-    console.error("No modal-content parent found for action "+actionName);
-    return null;
-  }
-}
-
-actionAndNav.init(view.showExclusive, showErrorReport, resetErrorReport);

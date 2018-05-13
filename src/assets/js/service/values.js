@@ -1,4 +1,4 @@
-const constants = require("../../utils/constants");
+const constants = require("../utils/constants");
 const spreadsheets = require("./spreadsheets");
 function getTerms(spreadsheetId, setsToGet){
 
