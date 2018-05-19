@@ -102,12 +102,14 @@ html, body {
 }
 .result-btn{
     padding-bottom: .25em;
+    width: 25%;
+    margin: 0 5%;
 }
 .result-btn.incorrect{
-    background: red
+    background: #ff0000c7
 }
 .result-btn.correct{
-    background: green;
+    background: #00ff0acf;
 }
 .footer{
     position: absolute;
