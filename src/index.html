@@ -18,7 +18,7 @@
 
   <div id="login-modal" class="modal default-hidden">
     <div class="modal-content">
-      <h2 class="section main-text">Welcome Message and app description</h2>
+      <h2 class="section main-text">Create flashcards from your own word sets in a google sheets document.</h2>
       <div data-error="sign-in" class="section error-message default-hidden"></div>
       <div class="section">
         <button class="btn" data-action="sign-in">Sign In with Google</button>
@@ -72,18 +72,14 @@
         <h2 id="english" class="card-text"></h2>
       </div>
       <div data-error="flip" class="section error-message default-hidden"></div>
-      <div data-error="delay-zero-min" class="section error-message default-hidden"></div>
-      <div data-error="delay-one-min" class="section error-message default-hidden"></div>
-      <div data-error="delay-ten-min" class="section error-message default-hidden"></div>
-      <div data-error="delay-one-hour" class="section error-message default-hidden"></div>
+      <div data-error="show-card-later" class="section error-message default-hidden"></div>
+      <div data-error="hide-card" class="section error-message default-hidden"></div>
       <div class="section">
         <button class="btn" data-action="flip">Flip</button>
       </div>
-      <div id="hide-for-section" class="section default-hidden">
-        <button class="btn" data-action="delay-zero-min">X</button>
-        <button class="btn" data-action="delay-one-min">1 Min</button>
-        <button class="btn" data-action="delay-ten-min">10 Mins</button>
-        <button class="btn" data-action="delay-one-hour">1 Hour</button>
+      <div id="results-section" class="section default-hidden">
+        <button class="btn" data-action="show-card-later">X</button>
+        <button class="btn" data-action="hide-card">O</button>
       </div>
     </div>
 

@@ -6,7 +6,7 @@ const actionAndNav = require("./js/utils/actionAndNav");
 const dataService = require("./js/service/dataService");
 const constants = require("./js/utils/constants");
 const authFlow = require("./js/auth/authFlow");
-const flashcardsFlow = require("./js/flashcards/flashcardsFlow");
+const flashcards = require("./js/flashcards/flashcards");
 const settingsFlow = require("./js/settings/settingsFlow");
 
 const data = {
@@ -44,14 +44,7 @@ function onSignout(){
   view.showExclusive("login-modal");
 }
 
-authFlow.init(config, onSignin, onSignout);//.then(startApp);
-
-// function startApp(){
-//   return settingsFlow.start(settings)
-//   .then(function(){
-//     view.show("settings-btn");
-//   });
-// }
+authFlow.init(config, onSignin, onSignout);
 
 settingsFlow.init(
   data,
@@ -59,13 +52,11 @@ settingsFlow.init(
   ()=>{
     return dataService.getTerms(settings, data)
     .then(terms=>{
-      flashcardsFlow.start(terms);
+      flashcards.start(settings, terms);
       view.showExclusive('flash-card');
     });
   },
   ()=>{
-    flashcardsFlow.start();
+    flashcards.skip();
     return Promise.resolve(true);
   });
-
-flashcardsFlow.init(data, settings, ()=>view.showExclusive('complete'));
