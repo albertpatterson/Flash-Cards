@@ -15,4 +15,17 @@ An app for creating interactive flashcards from a list of terms saved in a Googl
     2. Consider sharing your term lists
         1. Share the app to allow anyone with the link to view the document
         2. Email the link to the spreadsheet document to apatterson189@gmail.com
+## How to install and run
+1. Clone this repo
+2. `> npm install`
+3. Create your own project and setup OAuth 2.0 as described at https://developers.google.com/identity/protocols/OpenIDConnect
+4. upadte src/assets/app.js to use your own project information  
+5. development
+    1. build 
+        * Unix: `$> npm run build`
+        * Windows: `> npm run buildw`
+    2. webpack dev serve: `> npm run dev`
+    * optional: serve using firebase configuration
+        1. `> npm install -g firebase-tools`
+        2. `> firebase serve`
 
