@@ -16,8 +16,12 @@ html, body {
 .default-hidden{
     display: none;
 }
+.default-invisible{
+    visibility: hidden;
+}
 .showing{
     display: block;
+    visibility: visible;
 }
 .btn {
     border-radius: 1rem;
@@ -49,7 +53,7 @@ html, body {
     content: "?";
 }
 #settings-btn{
-    background-image: url("../media/settings.png");
+    background-image: url("/assets/media/settings.png");
     background-repeat: no-repeat;
     background-size: 100%;
     color: #000000;
@@ -95,4 +99,18 @@ html, body {
 }
 .default-option{
     display: none;
+}
+.result-btn{
+    padding-bottom: .25em;
+}
+.result-btn.incorrect{
+    background: red
+}
+.result-btn.correct{
+    background: green;
+}
+.footer{
+    position: absolute;
+    bottom: 0px;
+    width: 100%
 }

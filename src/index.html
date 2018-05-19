@@ -47,7 +47,7 @@
         <input type="text"  class="input" placeholder="spreadsheet ID" id="spreadsheet-id" data-actionsync="update-spreadsheet-id">
       </div>
       <div data-error="set-spreadsheet-id" class="section error-message default-hidden"></div>
-      <div class="section">
+      <div class="section footer">
         <button class="btn" data-action="set-spreadsheet-id",  data-nav="choose-sheets">OK</button>
       </div>
     </div>
@@ -57,7 +57,7 @@
       <div id="sheet-checkbox-group-wrapper" class="section">
       </div>
       <div data-error="set-sheets" class="section error-message default-hidden"></div>
-      <div class="section">
+      <div class="section footer">
         <button class="btn" data-nav="choose-spreadsheet">Back</button>
         <button class="btn" data-action="set-sheets">OK</button>
       </div>
@@ -74,12 +74,14 @@
       <div data-error="flip" class="section error-message default-hidden"></div>
       <div data-error="show-card-later" class="section error-message default-hidden"></div>
       <div data-error="hide-card" class="section error-message default-hidden"></div>
-      <div class="section">
-        <button class="btn" data-action="flip">Flip</button>
-      </div>
-      <div id="results-section" class="section default-hidden">
-        <button class="btn" data-action="show-card-later">X</button>
-        <button class="btn" data-action="hide-card">O</button>
+      <div class="footer">      
+        <div class="section">
+          <button class="btn" data-action="flip">Flip</button>
+        </div>
+        <div id="results-section" class="section default-invisible">
+          <button class="btn result-btn incorrect" data-action="show-card-later">&#9746;</button>
+          <button class="btn result-btn correct" data-action="hide-card">&#9745;</button>
+        </div>
       </div>
     </div>
 

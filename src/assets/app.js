@@ -1,5 +1,6 @@
 import './css/app.css';
-import './media/favicon.ico';
+import './media/settings.png'
+
 
 const view = require("./js/utils/view");
 const actionAndNav = require("./js/utils/actionAndNav");

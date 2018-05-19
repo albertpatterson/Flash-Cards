@@ -19,7 +19,7 @@ const config = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       template: 'index.html',
-      favicon: 'assets/media/favicon.ico'
+      favicon: 'favicon.ico'
     }),
     new MiniCssExtractPlugin({
       filename: 'assets/css/app.css'
