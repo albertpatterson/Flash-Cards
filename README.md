@@ -2,6 +2,9 @@
 An app for creating interactive flashcards from a list of terms saved in a Google Sheets spreadsheet document, allowing users to create flashcards from public lists or their own private lists.
 ## How to use
 1. Find the app at https://flashcards-6c206.firebaseapp.com/ hosted via Firebase
+    1. The app is not yet verified (work in progress)
+    2. it currently only supports phones in portrait disiplay
+    3. Overall the app is very rough but does off the basic functionality described
 2. Sign in with Google, which allows the app to locate and read saved word lists
 3. optional steps
     1. Create your own lists
