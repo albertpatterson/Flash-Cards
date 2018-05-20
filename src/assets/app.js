@@ -10,6 +10,9 @@ const authFlow = require("./js/auth/authFlow");
 const flashcards = require("./js/flashcards/flashcards");
 const settingsFlow = require("./js/settings/settingsFlow");
 
+// set fontsize based on device size
+document.querySelector('html').style.fontSize=document.body.style.fontSize=screen.availHeight*devicePixelRatio*.015+"px";
+
 const data = {
   availableSets: [],
   activeCards: [],

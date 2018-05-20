@@ -1,7 +1,6 @@
 html, body {
     height: 100%;
     margin: 0;
-    font-size: 30px;
 }
 .modal {
     height: 100%;
@@ -115,4 +114,7 @@ html, body {
     position: absolute;
     bottom: 0px;
     width: 100%
+}
+.display-block{
+    display: block;
 }
