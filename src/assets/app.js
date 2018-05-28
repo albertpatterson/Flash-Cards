@@ -33,7 +33,7 @@ let config = {
   discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4",
                   "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
   clientId: '654884288051-tljp13krpkhd0vmv71arp2lrt2avc0br.apps.googleusercontent.com',
-  scope: 'https://www.googleapis.com/auth/drive.metadata.readonly'
+  scope: 'https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/spreadsheets.readonly'
 };
 
 function onSignin(){

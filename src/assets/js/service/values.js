@@ -28,14 +28,8 @@ function getPublicSpreadsheetMetadata(settings){
   .then(r=>parseResponse(r.result, 'values'))
   .then(values=>{
     const ids = values[0];
-    console.log(ids);
     return getSpreadsheetNames(ids);
-  })
-  .then(md=>{
-    console.log(md);
-    return md;
-  })
-
+  });
 }
 
 function getSpreadsheetNames(ids){
