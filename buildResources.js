@@ -1,39 +1,19 @@
-
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const devMode = process.env.NODE_ENV !== 'production';
-
-const config = {
+module.exports.commonConfig = {
   context: path.resolve(__dirname, 'src'),
   entry: {
     app: './assets/app.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: './assets/app.bundle.js'
+    filename: './assets/app_[hash].bundle.js'
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      template: 'index.html',
-      favicon: 'favicon.ico'
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'assets/css/app.css'
-      // chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
-    })
   ],
-  devServer: {
-    contentBase: path.resolve(__dirname, "./dist"),
-    compress: true,
-    port: 12003,
-    stats: 'errors-only',
-    open: true
-  },
-  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -52,21 +32,14 @@ const config = {
         use: ['html-loader']
       },
       {
-        test:/\.css$/,
-        use: [
-          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'css-loader'
-        ],
-      },
-      {
         test: /\.(jpg|png|gif|svg|ico)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]',
+              name: '[name]_[hash].[ext]',
               outputPath: './assets/media/',
-              publicPath: './assets/media/'
+              publicPath: '/assets/media'
             }
           }
         ]
@@ -75,4 +48,28 @@ const config = {
   }
 };
 
-module.exports = config;
+module.exports.createHtmlWebpackPlugin = function(opts){
+  const config = {
+    template: 'index.html',
+    favicon: 'assets/media/favicon.ico'
+  };
+  if(opts) Object.assign(config, opts);
+  return new HtmlWebpackPlugin(config);
+};
+
+
+module.exports.createSCSSModule = function(cssLoader){
+  return {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          cssLoader,
+          'css-loader',
+          'sass-loader'
+        ],
+      }
+    ]
+  };
+};
+
