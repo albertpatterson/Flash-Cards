@@ -1,16 +1,9 @@
-let onSignin = null;
-let onSignout = null;
-function onStatusUpdate(state){
-  state ? onSignin() : onSignout();
-}
+const googleConfig = require("../config/googleConfig");
 
-function init(config, _onSignin, _onSignout){
-  onSignin = _onSignin;
-  onSignout = _onSignout;
-  
+function init(onStatusUpdate){
   return load_gapi()
   .then(loadAuthClient)
-  .then(()=>initClient(config, onStatusUpdate))
+  .then(()=>initClient(onStatusUpdate));
 }
 
 function load_gapi(){
@@ -30,21 +23,22 @@ function loadAuthClient(){
   })
 }
 
-function initClient(config, signInStatusUpdateCallback) {
-  return gapi.client.init(config)
+function initClient(onStatusUpdate) {
+  return gapi.client.init(googleConfig)
   .then(function () {
     const googleAuth = gapi.auth2.getAuthInstance();
-    googleAuth.isSignedIn.listen(signInStatusUpdateCallback);
-    googleAuth.isSignedIn.get() ? onSignin() : onSignout();
-  })
+    const getGoogleUser = isSignedIn => isSignedIn ? googleAuth.currentUser.get() : null;
+    googleAuth.isSignedIn.listen(isSignedIn=>onStatusUpdate(getGoogleUser(isSignedIn)));
+    onStatusUpdate(getGoogleUser(googleAuth.isSignedIn.get()));
+  });
 }
 
 function signIn(){
-  gapi.auth2.getAuthInstance().signIn();
+    return gapi.auth2.getAuthInstance().signIn();
 }
 
 function signOut(){
-  gapi.auth2.getAuthInstance().signOut();
+  return gapi.auth2.getAuthInstance().signOut();
 }
 
 module.exports = {

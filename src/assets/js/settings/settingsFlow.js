@@ -1,12 +1,14 @@
 const actionAndNav = require("../utils/actionAndNav");
 const constants = require("../utils/constants");
 const dataService = require("../service/dataService");
-const view = require("../utils/view")
+const view = require("../utils/view");
 
 let data = null;
 let settings = null;
 let onUpdateData = null;
 let onUpdateSettings = null;
+
+let choosenName = null;
 
 const actions = {
   "update-spreadsheet-id": function(e){
@@ -17,29 +19,32 @@ const actions = {
   },
   "set-spreadsheet-id": function(){
 
-    settings.google.spreadsheetId = document.getElementById("spreadsheet-id").value;
+    const id = document.getElementById("spreadsheet-id").value;
+    settings.google.spreadsheetId = id;
 
     if(!settings.google.spreadsheetId.match(constants.spreadsheetIdRegex)){
       return Promise.reject(new Error("Invalid Spreadsheet ID"));
     }
-  
+
+    dataService.insertRecent({name: choosenName, id: id});
+
     return getSets().then(setupSetSelection);
   },
   "set-sheets": function(){
     data.availableSets.forEach((t, i)=>{
       settings.setSelected[i]=document.getElementById(getSheetCheckboxId(t, i)).checked;
-    })
+    });
     return onUpdateData ? onUpdateData() : Promise.resolve(true);
   },
   "update-settings": function(){
     updateSettingsFromPanel();
     return onUpdateSettings ? onUpdateSettings() : Promise.resolve(true);
   }
-}
+};
 actionAndNav.addActions(actions);
 
 function initCollectionSelectionView(collections){
-  return Promise.all([initOwnCollectionSelectionView(), initPublicCollectionSelectionView()]);
+  return Promise.all([initOwnCollectionSelectionView(), initPublicCollectionSelectionView(), initRecentCollectionSelectionView()]);
 }
 
 const ownSpreadsheetSelect = document.getElementById("choose-own-spreadsheet");
@@ -54,6 +59,13 @@ const defaultPublicSpreadsheetOption = document.getElementById("default-public-s
 function initPublicCollectionSelectionView(){
   return dataService.getPublicCollections(settings, data)
   .then(c=>initSpreadsheetSelectValues(publicSpreadsheetSelect, defaultPublicSpreadsheetOption, c))
+}
+
+const recentSpreadsheetSelect = document.getElementById("choose-recent-spreadsheet");
+const defaultRecentSpreadsheetOption = document.getElementById("default-recent-spreadsheet-option");
+function initRecentCollectionSelectionView(){
+  return dataService.getRecents(settings, data)
+  .then(c=>initSpreadsheetSelectValues(recentSpreadsheetSelect, defaultRecentSpreadsheetOption, c))
 }
 
 function initSpreadsheetSelectValues(spreadsheetSelect, defaultValueEl, spreadsheets){
@@ -80,14 +92,25 @@ function initSpreadsheetSelectValues(spreadsheetSelect, defaultValueEl, spreadsh
 const spreadsheetIdInput = document.getElementById("spreadsheet-id");
 function updateCollectionSelectionViewChoice(target){
   if(target === ownSpreadsheetSelect ){
+    choosenName = target.selectedOptions[0].innerText;
     publicSpreadsheetSelect.value="";
+    recentSpreadsheetSelect.value="";
     spreadsheetIdInput.value = ownSpreadsheetSelect.value;
   }else if(target === publicSpreadsheetSelect){
-    ownSpreadsheetSelect.value="";
+    choosenName = target.selectedOptions[0].innerText;
+    ownSpreadsheetSelect.value = "";
+    recentSpreadsheetSelect.value="";
     spreadsheetIdInput.value = publicSpreadsheetSelect.value;
-  }else {
+  }else if(target === recentSpreadsheetSelect){
+    choosenName = target.selectedOptions[0].innerText;
     ownSpreadsheetSelect.value="";
     publicSpreadsheetSelect.value="";
+    spreadsheetIdInput.value = recentSpreadsheetSelect.value;
+  }else {
+    choosenName = null;
+    ownSpreadsheetSelect.value="";
+    publicSpreadsheetSelect.value="";
+    recentSpreadsheetSelect.value="";
   }
 }
 

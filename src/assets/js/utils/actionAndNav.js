@@ -7,15 +7,15 @@ let els = document.querySelectorAll("[data-nav], [data-action], [data-actionsync
 [].forEach.call(els, el=>{
   let actionName=el.dataset.action;
   let syncActionName=el.dataset.actionsync;
-  let nextId=el.dataset.nav
+  let nextId=el.dataset.nav;
   const interaction = getInteraction(el);
 
   if(actionName){
   
     el[interaction] = function(event){
-      disableActionAndNav()
+      disableActionAndNav();
       actions[actionName](event)
-      .then(resetErrorReport(el))
+      .then(()=>resetErrorReport(el))
       .catch(e=>showErrorReport(e, el))
       .then(go=>go&&nextId&&nav(nextId))
       .then(enableActionAndNav);
