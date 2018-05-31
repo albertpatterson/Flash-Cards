@@ -26,7 +26,7 @@ const actions = {
       return Promise.reject(new Error("Invalid Spreadsheet ID"));
     }
 
-    dataService.insertRecent({name: choosenName, id: id});
+    dataService.insertRecent({name: choosenName, id: id}).then(initRecentCollectionSelectionView);
 
     return getSets().then(setupSetSelection);
   },
@@ -43,7 +43,7 @@ const actions = {
 };
 actionAndNav.addActions(actions);
 
-function initCollectionSelectionView(collections){
+function initCollectionSelectionView(){
   return Promise.all([initOwnCollectionSelectionView(), initPublicCollectionSelectionView(), initRecentCollectionSelectionView()]);
 }
 
