@@ -4,3 +4,4 @@ node_modules
 dist
 junk
 package-lock.json
+not_shared

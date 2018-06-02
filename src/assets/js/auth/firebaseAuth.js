@@ -2,7 +2,7 @@ const firebase = require("firebase/app");
 import "firebase/auth";
 import 'firebase/database';
 
-const firebaseConfig  = require("../config/firebaseConfig");
+const firebaseConfig  = require("../../not_shared/config/firebaseConfig");
 firebase.initializeApp(firebaseConfig);
 
 let googleUser = null;

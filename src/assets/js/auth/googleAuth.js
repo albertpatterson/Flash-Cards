@@ -1,4 +1,4 @@
-const googleConfig = require("../config/googleConfig");
+const googleConfig = require("../../not_shared/config/googleConfig");
 
 function init(onStatusUpdate){
   return load_gapi()
