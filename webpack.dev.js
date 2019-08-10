@@ -2,7 +2,7 @@ const path = require('path');
 const merge = require("webpack-merge");
 const buildResources = require("./buildResources");
 
-module.exports = merge(buildResources.commonConfig, {
+export default merge(buildResources.commonConfig, {
   mode: "development",
   devtool: "inline-source-map",
   devServer: {

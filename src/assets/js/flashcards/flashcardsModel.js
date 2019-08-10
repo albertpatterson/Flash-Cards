@@ -72,7 +72,7 @@ function placeCurrentInDeck(result){
 }
 
 
-module.exports = {
+export default {
   start,
   getNext
 }

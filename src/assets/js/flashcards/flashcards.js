@@ -1,10 +1,11 @@
-const flashcardsModel = require("./flashcardsModel");
-const flashcardsController = require("./flashcardsController");
+import flashcardsController from './flashcardsController';
+import flashcardsModel from './flashcardsModel';
 
-module.exports = {
-  start: function(settings, terms){
-    flashcardsModel.start(terms);
-    flashcardsController.start(settings);
-  },
+export default {
+  start:
+      function(settings, terms) {
+        flashcardsModel.start(terms);
+        flashcardsController.start(settings);
+      },
   skip: flashcardsController.skip
 }

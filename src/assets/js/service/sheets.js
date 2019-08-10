@@ -28,7 +28,7 @@ function extractSheetTitles(sheets){
 }
   
 
-module.exports = {
+export default {
   getMetadata: function(settings){
     return getSheetTitles(settings.google.spreadsheetId)
     .then(extractSheetTitles);

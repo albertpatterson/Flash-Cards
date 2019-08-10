@@ -4,7 +4,7 @@ const MinifyPlugin = require("babel-minify-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
-module.exports = merge(buildResources.commonConfig, {
+export default merge(buildResources.commonConfig, {
   mode: "production",
   plugins: [
     new MinifyPlugin(),

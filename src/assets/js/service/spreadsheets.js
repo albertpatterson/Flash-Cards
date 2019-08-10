@@ -37,7 +37,7 @@ function extractSpreadsheetDetails(collections){
   return collections.map(item=>{return {name: item.name, id: item.id};});
 }
 
-module.exports = {
+export default {
   getUserSpreadsheetsMetadata,
   getSpreadsheetMetadata
 }

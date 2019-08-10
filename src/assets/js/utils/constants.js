@@ -13,4 +13,4 @@ localVals.dayMilis = 24*localVals.hourMilis;
 
 Object.freeze(localVals);
 
-module.exports = localVals;
+export default localVals;

@@ -1,8 +1,9 @@
-const spreadsheets = require("./spreadsheets");
-const sheets = require("./sheets");
-const values = require("./values");
-const firebaseService = require("./firebaseService");
-module.exports = {
+import firebaseService from './firebaseService';
+import sheets from './sheets';
+import spreadsheets from './spreadsheets';
+import values from './values';
+
+export default {
   getOwnCollections: spreadsheets.getUserSpreadsheetsMetadata,
   getPublicCollections: values.getPublicSpreadsheetMetadata,
   getSets: sheets.getMetadata,

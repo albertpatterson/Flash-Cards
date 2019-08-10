@@ -1,5 +1,5 @@
 const exclusiveViewClasses = ["modal", "modal-content"];
-module.exports = {
+export default {
   
   show: function(identifier){
     const el = typeof identifier === "string" ? document.getElementById(identifier) : identifier;
