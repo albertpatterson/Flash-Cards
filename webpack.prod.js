@@ -1,16 +1,14 @@
-const merge = require("webpack-merge");
-const buildResources = require("./buildResources");
-const MinifyPlugin = require("babel-minify-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const merge = require('webpack-merge');
+const buildResources = require('./buildResources');
+const MinifyPlugin = require('babel-minify-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-export default merge(buildResources.commonConfig, {
-  mode: "production",
+module.exports = merge(buildResources.commonConfig, {
+  mode: 'production',
   plugins: [
     new MinifyPlugin(),
-    new MiniCssExtractPlugin({
-      filename: 'assets/css/app_[hash].css'
-    }),
+    new MiniCssExtractPlugin({filename: 'assets/css/app_[hash].css'}),
     new OptimizeCSSAssetsPlugin({}),
     buildResources.createHtmlWebpackPlugin({
       minify: {

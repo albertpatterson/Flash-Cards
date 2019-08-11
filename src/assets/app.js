@@ -24,7 +24,8 @@ const settings = {
     spreadsheetId: '',
   },
   setSelected: [],
-  startWithChinese: false,
+  startWithLearningLanguage: false,
+  showIntermediateLanguageOnFront: false,
   provider: constants.google,
 };
 

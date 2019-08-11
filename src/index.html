@@ -1,13 +1,22 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Flash Cards</title>
-  <meta name="description" content="Flash cards for studying Chinese">
+  <meta name="description" content="Flash cards">
   <meta name="author" content="Albert Patterson">
 
+  <style>
+    body {
+      /* prevent fouc */
+      visibility: hidden;
+    }
+  </style>
+
 </head>
+
 <body>
 
   <div id="loading-modal" class="modal default-hidden showing">
@@ -35,30 +44,37 @@
       <h2 class="section main-text">Which spreadsheet would you like to use?</h2>
       <div class="section">
         <label for="choose-own-spreadsheet" class="label display-block">My Spreadsheet:</label>
-        <select class="input" name="choose-own-spreadsheet" id="choose-own-spreadsheet" data-actionsync="update-spreadsheet-id">
-          <option value="" id="default-own-spreadsheet-option" class="default-option" disabled selected>Choose spreadsheet</option>
+        <select class="input" name="choose-own-spreadsheet" id="choose-own-spreadsheet"
+          data-actionsync="update-spreadsheet-id">
+          <option value="" id="default-own-spreadsheet-option" class="default-option" disabled selected>Choose
+            spreadsheet</option>
         </select>
       </div>
       <div class="section">
         <label for="choose-public-spreadsheet" class="label display-block">Public Spreadsheet:</label>
-        <select class="input" name="choose-public-spreadsheet" id="choose-public-spreadsheet" data-actionsync="update-spreadsheet-id">
-          <option value="" id="default-public-spreadsheet-option" class="default-option" disabled selected>Choose spreadsheet</option>
+        <select class="input" name="choose-public-spreadsheet" id="choose-public-spreadsheet"
+          data-actionsync="update-spreadsheet-id">
+          <option value="" id="default-public-spreadsheet-option" class="default-option" disabled selected>Choose
+            spreadsheet</option>
         </select>
       </div>
       <div class="section">
         <label for="choose-recent-spreadsheet" class="label display-block">Recent Spreadsheet:</label>
-        <select class="input" name="choose-recent-spreadsheet" id="choose-recent-spreadsheet" data-actionsync="update-spreadsheet-id">
-          <option value="" id="default-recent-spreadsheet-option" class="default-option" disabled selected>Choose spreadsheet</option>
+        <select class="input" name="choose-recent-spreadsheet" id="choose-recent-spreadsheet"
+          data-actionsync="update-spreadsheet-id">
+          <option value="" id="default-recent-spreadsheet-option" class="default-option" disabled selected>Choose
+            spreadsheet</option>
         </select>
       </div>
       <div class="section">
         <label for="spreadsheet-id" class="label display-block">Spreadsheet ID<a id="spreadsheet-info"></a></label>
-        <input type="text"  class="input" placeholder="spreadsheet ID" id="spreadsheet-id" data-actionsync="update-spreadsheet-id">
+        <input type="text" class="input" placeholder="spreadsheet ID" id="spreadsheet-id"
+          data-actionsync="update-spreadsheet-id">
       </div>
       <div data-error="set-spreadsheet-id" class="section error-message default-hidden"></div>
       <div class="footer">
         <div class="section">
-          <button class="btn" data-action="set-spreadsheet-id",  data-nav="choose-sheets">OK</button>
+          <button class="btn" data-action="set-spreadsheet-id" data-nav="choose-sheets">OK</button>
         </div>
       </div>
     </div>
@@ -75,19 +91,20 @@
         </div>
       </div>
     </div>
-    
+
     <div id="flash-card" class="modal-content default-hidden" tabindex="-1">
-      <div id="chinese-side" class="section default-hidden">
-        <h2 id="hanzi" class="card-text"></h2>
-        <h2 id="pinyin" class="card-text"></h2>
+      <div id="learning-language-side" class="section default-hidden">
+        <h2 id="learning-language" class="card-text"></h2>
+        <h2 id="learning-language-side-intermediate" class="card-text default-hidden"></h2>
       </div>
-      <div id="english-side" class="section default-hidden">
-        <h2 id="english" class="card-text"></h2>
+      <div id="known-language-side" class="section default-hidden">
+        <h2 id="known-language" class="card-text"></h2>
+        <h2 id="known-language-side-intermediate" class="card-text default-hidden"></h2>
       </div>
       <div data-error="flip" class="section error-message default-hidden"></div>
       <div data-error="show-card-later" class="section error-message default-hidden"></div>
       <div data-error="hide-card" class="section error-message default-hidden"></div>
-      <div class="footer">      
+      <div class="footer">
         <button id="flip-card" class="btn section" data-action="flip">Flip</button>
         <div id="results-section" class="section default-invisible">
           <button id="show-card-later" class="btn result-btn incorrect" data-action="show-card-later">&#9746;</button>
@@ -96,7 +113,7 @@
       </div>
     </div>
 
-    <div id="complete" class="modal-content default-hidden"> 
+    <div id="complete" class="modal-content default-hidden">
       <h2 class="section main-text">All Cards Complete!</h2>
       <div data-error="reset" class="section error-message default-hidden"></div>
       <div class="section">
@@ -109,8 +126,16 @@
       <div class="section">
         <label for="front-side-lang-select" class="label display-block">Choose the language on front of card.</label>
         <select class="input" id="front-side-lang-select">
-          <option class="option" value="Chinese">Chinese</option>
-          <option class="option" value="English">English</option>
+          <option class="option" value="learning-language">Learning</option>
+          <option class="option" value="known-language">Known</option>
+        </select>
+      </div>
+      <div class="section">
+        <label for="intermediate-lang-side-select" class="label display-block">Choose side for the intermediate
+          language.</label>
+        <select class="input" id="intermediate-lang-side-select">
+          <option class="option" value="front-side">Front</option>
+          <option class="option" value="back-side">Back</option>
         </select>
       </div>
       <div data-error="update-settings" class="section error-message default-hidden"></div>
@@ -125,4 +150,5 @@
     </div>
   </div>
 </body>
+
 </html>

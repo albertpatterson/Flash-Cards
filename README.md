@@ -12,9 +12,9 @@ An app for creating interactive flashcards from a list of terms saved in a Googl
         1. Create a Google Sheets spreadsheet document: https://www.google.com/sheets/about/
         2. Add terms
             * one term per row
-            * first column: hanzi
-            * second column: pinyin
-            * third column: english
+            * first column: language being studied
+            * second column: intermediate representation (eg. pinyin, hiragana, phonetic spelling, etc...)
+            * third column: known language
         3. Give each sheet a meaningful name (tabs at the bottom of the page represent sheets). The app will regard each sheet as a different term list. See https://docs.google.com/spreadsheets/d/1af9vsz-qcJooeql9yGn0TjOGGTE3amVIRm-Yu_y4bLU as an example
     2. Consider sharing your term lists
         1. Share the app to allow anyone with the link to view the document

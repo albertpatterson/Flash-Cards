@@ -74,14 +74,18 @@ const flashcardsController = {
   }
 };
 
-const flashCardHanzi = document.getElementById('hanzi');
-const flashCardPinyin = document.getElementById('pinyin');
-const flashCardEng = document.getElementById('english');
+const flashCardLearningLanguage = document.getElementById('learning-language');
+const flashCardKnownLanguage = document.getElementById('known-language');
+const knownLanguageSideIntermediate =
+    document.getElementById('known-language-side-intermediate');
+const learningLanguageSideIntermediate =
+    document.getElementById('learning-language-side-intermediate');
 function showCard(currentCard) {
   view.unshow(flashcard);
-  flashCardHanzi.innerText = currentCard.hanzi;
-  flashCardPinyin.innerText = currentCard.pinyin;
-  flashCardEng.innerText = currentCard.english;
+  flashCardLearningLanguage.innerText = currentCard.learningLanguage;
+  learningLanguageSideIntermediate.innerText = currentCard.intermediateLanguage;
+  knownLanguageSideIntermediate.innerText = currentCard.intermediateLanguage;
+  flashCardKnownLanguage.innerText = currentCard.knownLanguage;
 
   flipped = false;
   showFrontSide();
@@ -89,24 +93,41 @@ function showCard(currentCard) {
   flashcard.focus();
 }
 
-const chineseSide = document.getElementById('chinese-side');
-const englishSide = document.getElementById('english-side');
+const learningLanguageSide = document.getElementById('learning-language-side');
+const knownLanguageSide = document.getElementById('known-language-side');
 const resultsSection = document.getElementById('results-section');
 function showFrontSide() {
-  if (settings.startWithChinese) {
-    chineseSide.classList.toggle('showing', true);
-    englishSide.classList.toggle('showing', false);
+  if (settings.startWithLearningLanguage) {
+    learningLanguageSide.classList.toggle('showing', true);
+    knownLanguageSide.classList.toggle('showing', false);
+
+    if (settings.showIntermediateLanguageOnFront) {
+      learningLanguageSideIntermediate.classList.toggle('showing', true);
+      knownLanguageSideIntermediate.classList.toggle('showing', false);
+    } else {
+      learningLanguageSideIntermediate.classList.toggle('showing', false);
+      knownLanguageSideIntermediate.classList.toggle('showing', true);
+    }
+
   } else {
-    englishSide.classList.toggle('showing', true);
-    chineseSide.classList.toggle('showing', false);
+    knownLanguageSide.classList.toggle('showing', true);
+    learningLanguageSide.classList.toggle('showing', false);
+
+    if (settings.showIntermediateLanguageOnFront) {
+      learningLanguageSideIntermediate.classList.toggle('showing', false);
+      knownLanguageSideIntermediate.classList.toggle('showing', true);
+    } else {
+      learningLanguageSideIntermediate.classList.toggle('showing', true);
+      knownLanguageSideIntermediate.classList.toggle('showing', false);
+    }
   }
   resultsSection.classList.toggle('showing', false);
 }
 
 function flip() {
   flipped = true;
-  chineseSide.classList.toggle('showing');
-  englishSide.classList.toggle('showing');
+  learningLanguageSide.classList.toggle('showing');
+  knownLanguageSide.classList.toggle('showing');
   resultsSection.classList.toggle('showing', true);
   flashcard.focus();
 }

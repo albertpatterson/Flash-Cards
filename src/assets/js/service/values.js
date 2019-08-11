@@ -17,7 +17,7 @@ function batchExtractTerms(valueRanges) {
 }
 let arrToCard = a => {
   return {
-    hanzi: a[0], pinyin: a[1], english: a[2]
+    learningLanguage: a[0], intermediateLanguage: a[1], knownLanguage: a[2]
   }
 };
 

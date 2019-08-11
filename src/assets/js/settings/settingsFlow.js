@@ -144,9 +144,13 @@ function setupSetSelection(sets) {
 }
 
 function updateSettingsFromPanel() {
-  settings.startWithChinese = document.getElementById('front-side-lang-select')
-                                  .selectedOptions[0]
-                                  .value === constants.chinese;
+  settings.startWithLearningLanguage =
+      document.getElementById('front-side-lang-select')
+          .selectedOptions[0]
+          .value === constants.learningLanguage;
+
+  settings.showIntermediateLanguageOnFront =
+      !document.getElementById('intermediate-lang-side-select').selectedIndex;
 }
 
 function initSelectedSheetTitles() {
@@ -202,7 +206,10 @@ const settingsFlow = {
         'https://developers.google.com/sheets/api/guides/concepts#sheet_id';
 
     document.getElementById('front-side-lang-select').selectedIndex =
-        settings.startWithChinese ? 0 : 1;
+        settings.startWithLearningLanguage ? 0 : 1;
+
+    document.getElementById('intermediate-lang-side-select').selectedIndex =
+        settings.showIntermediateLanguateOnFront ? 0 : 1;
   },
 
   start: function() {
