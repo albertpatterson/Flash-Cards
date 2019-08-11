@@ -6,7 +6,9 @@
   "scripts": {
     "watch": "./node_modules/.bin/webpack --watch --config webpack.dev.js",
     "dev": "webpack-dev-server --open --config webpack.dev.js",
-    "build": "./node_modules/.bin/webpack --config webpack.prod.js"
+    "build": "./node_modules/.bin/webpack --config webpack.prod.js",
+    "deploy-staging": "npm run build && firebase deploy -P flashcards-staging",
+    "deploy-production": "npm run build && firebase deploy -P flashcards-production"
   },
   "repository": {
     "type": "git",

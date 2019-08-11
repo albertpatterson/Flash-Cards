@@ -1,6 +1,7 @@
 {
   "projects": {
     "default": "flashcards-6c206",
-    "flashcards-staging": "flashcards-staging-206fc"
+    "flashcards-staging": "flashcards-staging-206fc",
+    "flashcards-production": "flashcards-6c206"
   }
 }
