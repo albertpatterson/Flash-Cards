@@ -5,22 +5,13 @@ import flashcardsModel from './flashcardsModel';
 
 let settings = null;
 let flipped = false;
-
-const actions = {
-  'flip': flipCard,
-  'show-card-later': showCardLater,
-  'hide-card': hideCard,
-  'reset': () => {
-    flashcardsModel.start();
-    proceed();
-    return Promise.resolve(true);
-  }
-};
-actionAndNav.addActions(actions);
-
+let complete = false;
 
 const clickTime = 250;
 const showCardLaterBtn = document.getElementById('show-card-later');
+showCardLaterBtn.addEventListener('click', () => flipped && showCardLater());
+showCardLaterBtn.addEventListener('touchstart', e => e.stopPropagation());
+showCardLaterBtn.addEventListener('touchend', e => e.stopPropagation());
 function showCardLater() {
   return new Promise(res => {
     showCardLaterBtn.classList.add('pressed');
@@ -33,6 +24,9 @@ function showCardLater() {
 }
 
 const hideCardBtn = document.getElementById('hide-card');
+hideCardBtn.addEventListener('click', () => flipped && hideCard());
+hideCardBtn.addEventListener('touchstart', e => e.stopPropagation());
+hideCardBtn.addEventListener('touchend', e => e.stopPropagation());
 function hideCard() {
   return new Promise(res => {
     hideCardBtn.classList.add('pressed');
@@ -46,6 +40,9 @@ function hideCard() {
 
 
 const flipCardBtn = document.getElementById('flip-card');
+flipCardBtn.addEventListener('click', flipCard);
+flipCardBtn.addEventListener('touchstart', e => e.stopPropagation());
+flipCardBtn.addEventListener('touchend', e => e.stopPropagation());
 function flipCard() {
   return new Promise(res => {
     flipCardBtn.classList.add('pressed');
@@ -57,13 +54,72 @@ function flipCard() {
   })
 }
 
-function proceed(result) {
-  const currentCard = flashcardsModel.getNext(result);
-  currentCard ? showCard(currentCard) : showAllComplete();
+const resetCardsBtn = document.getElementById('reset-cards');
+resetCardsBtn.addEventListener('click', () => complete && reset());
+resetCardsBtn.addEventListener('touchstart', e => e.stopPropagation());
+resetCardsBtn.addEventListener('touchend', e => e.stopPropagation());
+function reset() {
+  flashcardsModel.start();
+  proceed();
+  return Promise.resolve(true);
 }
 
 const flashcard = document.getElementById('flash-card');
 flashcard.addEventListener('keyup', processFlashcardKeyEvents);
+flashcard.addEventListener('touchstart', handleTouchStart);
+flashcard.addEventListener('touchend', handleTouchEnd);
+
+function processFlashcardKeyEvents(event) {
+  switch (event.key) {
+    case 'ArrowUp':
+      flipCard();
+      break;
+    case 'ArrowLeft':
+      if (flipped) showCardLater();
+      break;
+    case 'ArrowRight':
+      if (flipped) hideCard();
+      break;
+  }
+}
+
+let touchStarts = {};
+const clientWidth = document.body.clientWidth;
+const nextCardThreshold = clientWidth / 4;
+const flipCardThreshold = clientWidth / 100;
+
+function handleTouchStart(touchEvent) {
+  for (const thouch of touchEvent.changedTouches) {
+    touchStarts[thouch.identifier] = thouch.clientX;
+  }
+}
+function handleTouchEnd(touchEvent) {
+  for (const thouch of touchEvent.changedTouches) {
+    const start = touchStarts[thouch.identifier];
+    const diff = thouch.clientX - start;
+    delete touchStarts[thouch.identifier];
+
+    if (diff > nextCardThreshold) {
+      if (flipped) hideCard();
+    } else if (diff < -1 * nextCardThreshold) {
+      if (flipped) showCardLater();
+    } else if (Math.abs(diff) < flipCardThreshold) {
+      flipCard();
+    }
+  }
+}
+
+function proceed(result) {
+  const currentCard = flashcardsModel.getNext(result);
+  if (!!currentCard) {
+    complete = false;
+    showCard(currentCard);
+  } else {
+    complete = true;
+    showAllComplete();
+  }
+}
+
 const flashcardsController = {
   start: function(_settings) {
     settings = _settings;
@@ -136,18 +192,5 @@ function showAllComplete() {
   view.showExclusive('complete');
 }
 
-function processFlashcardKeyEvents(event) {
-  switch (event.key) {
-    case 'ArrowUp':
-      flipCard();
-      break;
-    case 'ArrowLeft':
-      if (flipped) showCardLater();
-      break;
-    case 'ArrowRight':
-      if (flipped) hideCard();
-      break;
-  }
-}
 
 export default flashcardsController;
