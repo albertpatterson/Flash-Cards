@@ -13,6 +13,7 @@ showCardLaterBtn.addEventListener('click', () => flipped && showCardLater());
 showCardLaterBtn.addEventListener('touchstart', e => e.stopPropagation());
 showCardLaterBtn.addEventListener('touchend', e => e.stopPropagation());
 function showCardLater() {
+  flipped = false;
   return new Promise(res => {
     showCardLaterBtn.classList.add('pressed');
     setTimeout(() => {
@@ -28,6 +29,7 @@ hideCardBtn.addEventListener('click', () => flipped && hideCard());
 hideCardBtn.addEventListener('touchstart', e => e.stopPropagation());
 hideCardBtn.addEventListener('touchend', e => e.stopPropagation());
 function hideCard() {
+  flipped = false;
   return new Promise(res => {
     hideCardBtn.classList.add('pressed');
     setTimeout(() => {
