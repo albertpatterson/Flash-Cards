@@ -114,10 +114,18 @@ function proceed(result) {
   if (!!currentCard) {
     complete = false;
     showCard(currentCard);
+    updateProgress();
   } else {
     complete = true;
     showAllComplete();
   }
+}
+
+const completeCardCountEl = document.getElementById('complete-card-count');
+const totalCardCountEl = document.getElementById('total-card-count');
+function updateProgress() {
+  completeCardCountEl.innerText = flashcardsModel.getHiddenCardCount();
+  totalCardCountEl.innerText = flashcardsModel.getTotalCardCount();
 }
 
 const flashcardsController = {

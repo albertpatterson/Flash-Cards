@@ -104,7 +104,6 @@ body {
     display: none;
 }
 .result-btn{
-    padding-bottom: .25em;
     width: 25%;
     margin: 0 5%;
 }
@@ -141,4 +140,10 @@ body {
 #sheet-checkbox-group-wrapper{
     display: inline-block;
     text-align: left;
+}
+
+#progress{
+    text-align: center;
+    padding-bottom: .25em;
+    font-size: 2rem;
 }
