@@ -4,6 +4,7 @@ import './media/settings.png'
 import authFlow from './js/auth/authFlow';
 import flashcards from './js/flashcards/flashcards';
 import dataService from './js/service/dataService';
+import filterTerms from './js/settings/filterTerms';
 import settingsFlow from './js/settings/settingsFlow';
 import constants from './js/utils/constants';
 
@@ -42,15 +43,22 @@ function onSignout() {
 
 authFlow.init(onSignin, onSignout);
 
+function launchFlashCards(settings, terms) {
+  flashcards.start(settings, terms);
+  view.showExclusive('flash-card');
+}
+
 settingsFlow.init(
-    data, settings,
-    () => {
-      return dataService.getTerms(settings, data).then(terms => {
-        flashcards.start(settings, terms);
-        view.showExclusive('flash-card');
-      });
-    },
+    data,
+    settings,
+    () => dataService.getTerms(settings, data)
+              .then(
+                  terms => filterTerms(
+                      terms,
+                      filteredTerms =>
+                          launchFlashCards(settings, filteredTerms))),
     () => {
       flashcards.skip();
       return Promise.resolve(true);
-    });
+    },
+);
