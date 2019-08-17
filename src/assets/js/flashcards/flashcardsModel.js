@@ -1,8 +1,9 @@
-
+const activeDeckMaxSize = 10;
 let currentCard = null;
 let totalCards;
 
 const cardDecks = {
+  reserve: [],
   active: [],
   inactive: [],
   complete: []
@@ -10,7 +11,8 @@ const cardDecks = {
 
 function start(terms) {
   if (terms) {
-    cardDecks.active = terms;
+    cardDecks.reserve = terms;
+    cardDecks.active = [];
     cardDecks.inactive = [];
     cardDecks.complete = [];
     currentCard = null;
@@ -18,21 +20,22 @@ function start(terms) {
   } else {
     resetCards();
   }
-  shuffle();
+  shuffle(cardDecks.reserve);
 }
 
 function resetCards() {
-  cardDecks.active.push(...cardDecks.inactive.concat(cardDecks.complete));
-  if (currentCard) {
-    cardDecks.active.push(currentCard);
-  }
-  cardDecks.inactive = [];
-  cardDecks.complete = [];
-  currentCard = null;
+  start(getAllTerms());
 }
 
-function shuffle() {
-  const a = cardDecks.active;
+function getAllTerms() {
+  const allTerms = [];
+  for (const type in cardDecks) {
+    allTerms.push(...cardDecks[type]);
+  }
+  return allTerms;
+}
+
+function shuffle(a) {
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
@@ -46,7 +49,7 @@ function getNext(previousResult) {
     placeCurrentInDeck(previousResult);
   }
 
-  if (cardDecks.active.length == 0) resetIncompleteCards();
+  if (cardDecks.active.length == 0) refillActiveCardDeck();
 
   if (cardDecks.active.length > 0) {
     currentCard = cardDecks.active.pop();
@@ -55,11 +58,21 @@ function getNext(previousResult) {
   return currentCard;
 }
 
-function resetIncompleteCards() {
+function refillActiveCardDeck() {
+  const inactiveCount = cardDecks.inactive.length;
+  const newCount =
+      Math.min(activeDeckMaxSize - inactiveCount, cardDecks.reserve.length);
   cardDecks.active.push(...cardDecks.inactive);
   cardDecks.inactive = [];
-  shuffle();
+  cardDecks.active.push(...cardDecks.reserve.splice(0, newCount));
+  shuffle(cardDecks.active);
 }
+
+// function resetIncompleteCards() {
+//   cardDecks.active.push(...cardDecks.inactive);
+//   cardDecks.inactive = [];
+//   shuffle();
+// }
 
 
 function placeCurrentInDeck(result) {
